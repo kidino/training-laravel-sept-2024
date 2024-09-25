@@ -5,12 +5,14 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('welcome');
 
 
-Route::get('/home/{name?}/{age?}', [ HomeController::class, 'index' ])->name('home');
+Route::get('/', [ HomeController::class, 'index' ])->name('home');
+
+Route::get('/home/{name?}/{age?}', [ HomeController::class, 'index' ])->name('home1');
 
 Route::get('/about', function(){
     return view('about');
@@ -28,10 +30,7 @@ Route::prefix('user')->name('user.')->group(function () {
 // -- PROJECT ROUTINGS --//
 
 Route::resource('project', ProjectController::class);
-
-
-
-
+Route::delete('project',[ ProjectController::class, 'destroyMany' ])->name('project.destroy-many');
 
 // Route::get('/home/{name}', function($name){
 

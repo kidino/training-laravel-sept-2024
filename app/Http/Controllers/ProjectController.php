@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProjectStoreRequest;
+use App\Http\Requests\ProjectUpdateRequest;
 use App\Models\User;
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class ProjectController extends Controller
     public function index()
     {
         // $projects = Project::all();
-        $projects = Project::with('user')->paginate(50);
+        $projects = Project::with('user')->orderBy('name','asc')->orderBy('id','desc')->paginate(50);
         return view('project.index', compact('projects'));
     }
 
@@ -33,8 +34,8 @@ class ProjectController extends Controller
      */
     public function store(ProjectStoreRequest $request)
     {
-        $validated_date = $request->validated();
-        
+        $validated_data = $request->validated();
+
         // Project::create( $validated_data );
     
         $project = Project::create([
@@ -70,16 +71,61 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProjectUpdateRequest $request, Project $project)
     {
-        //
+
+        // -- if using normal Illuminate/Http/Request not ProjectUpdateRequest
+        // $validated_data = $request->validate([
+        //     'name' => 'required',
+        //     'description' => 'required',
+        //     'user_id' => 'required'
+        // ]);
+
+        $validated_data = $request->validated();
+
+        $project->update( $validated_data );
+
+        // -- manual update specific columns only
+        // $project->update([
+        //     'name' => $validated_data['name']
+        // ]);
+
+        // -- sample if need to update records from multiple tables
+        // $user = User::find($validated_data['user_id'] );
+        // $user = User::where('id', $validated_data['user_id'] )->first();
+        // $user->update([
+        //     'updated_at' => now()
+        // ]);
+
+        return redirect()->route('project.index')
+            ->with('success', "Project {$project->name} [{$project->id}] has been updated.") ;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Project $project)
     {
-        //
+        $p_name = $project->name;
+        $p_id = $project->id;
+        $project->delete();
+
+        return redirect()->route('project.index')
+            ->with('success', "Project {$p_name} [{$p_id}] has been updated.") ;
+    }
+
+    public function destroyMany(Request $request) {
+        // dd($request);
+
+        $request->validate([
+            'delete_ids' => 'required|array',
+            'delete_ids.*' => 'exists:projects,id'
+        ]);
+
+        Project::destroy( $request->delete_ids );
+
+        return redirect()->route('project.index')
+            ->with('success', "Projects has been deleted") ;
+
     }
 }

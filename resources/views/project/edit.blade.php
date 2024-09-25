@@ -3,9 +3,9 @@
 @section('main-content')
     <h2>Edit Project</h2>
 
-    <form action="{{ route('project.update', $project->id) }}" method="post">
+    <form action="{{ route('project.update', $project->id) }}" method="POST">
         @csrf
-        @method('put')
+        @method('PUT')
 
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
