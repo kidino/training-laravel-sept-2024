@@ -37,3 +37,18 @@ Bertempat di KelasProgramming.com (Taming Tech Sdn Bhd)
 * View layouts using extends, section, yield 
 * View flash session (success notification / alert)
 
+## Hari Ketiga
+
+* Edit for Project
+* Delete for Project
+* Authentication -- Breeze
+* Setting up email
+* Using Mailtrap.io 
+* Components
+* Breeze files (views, components, controllers)
+* Customizing Breeze logo
+* Model query (where, get, first, orderBy, all)
+* CRUD for Role
+* Artisan make:model Role -a
+* FormRequest class for validation
+* Validation rule unique but ignore for update 

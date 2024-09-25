@@ -16,7 +16,7 @@ class ProjectController extends Controller
     public function index()
     {
         // $projects = Project::all();
-        $projects = Project::with('user')->orderBy('name','asc')->orderBy('id','desc')->paginate(50);
+        $projects = Project::with('user')->orderBy('name','asc')->orderBy('id','desc')->paginate(20);
         return view('project.index', compact('projects'));
     }
 

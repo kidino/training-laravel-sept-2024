@@ -1,83 +1,96 @@
-@extends('layout.main')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Projects') }}
+        </h2>
+    </x-slot>
 
-@section('main-content')
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5">
+
 
     @session('success')
-        <div class="alert alert-success">
-            <button type="button" 
-            class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
-            {!! session('success') !!}
-        </div>
-    @endsession
+    <div class="mb-2 alert alert-success bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+        <button type="button" 
+                class="absolute top-0 right-0 px-4 py-3 text-green-700" 
+                onclick="this.parentElement.style.display='none';" aria-label="Close">
+            &times;
+        </button>
+        {!! session('success') !!}
+    </div>
+@endSession
 
-    @error('delete_ids')
-        <div class="alert alert-danger">
-            <button type="button" 
-            class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
-            {{ $message }}
-        </div>
-    @enderror    
+@error('delete_ids')
+    <div class="mb-2 alert alert-danger bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <button type="button" 
+                class="absolute top-0 right-0 px-4 py-3 text-red-700" 
+                onclick="this.parentElement.style.display='none';" aria-label="Close">
+            &times;
+        </button>
+        {{ $message }}
+    </div>
+@enderror    
 
-    <a href="{{ route('project.create') }}" 
-        class="btn btn-primary float-end">
-        Create New Project
-    </a>
+<a href="{{ route('project.create') }}" class="btn btn-primary float-end bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+    Create New Project
+</a>
 
-    <h2>Projects</h2>
-    {{ $projects->links() }}
 
-    <form action="{{ route('project.destroy-many') }}" method="POST"
-        onsubmit="return confirm('Are you sure to delete these records?');">
+<form action="{{ route('project.destroy-many') }}" method="POST"
+      onsubmit="return confirm('Are you sure to delete these records?');">
     @csrf 
     @method('DELETE')
-    <button type="submit" class="btn btn-sm btn-danger">DELETE</button>
-    <table class="table">
+    <button type="submit" class="btn btn-sm btn-danger bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+        Delete
+    </button>
+<div class="mt-3"></div>
+{{ $projects->links() }}
+
+
+    <table class="min-w-full bg-white border border-gray-200 mt-2 mb-2">
         <thead>
-            <tr>
-                <th></th>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>DESCRIPTION</th>
-                <th>PM</th>
-                <th></th>
+            <tr class="bg-gray-200 text-gray-600">
+                <th class="px-4 py-2"></th>
+                <th class="px-4 py-2">ID</th>
+                <th class="px-4 py-2">NAME</th>
+                <th class="px-4 py-2">DESCRIPTION</th>
+                <th class="px-4 py-2">PM</th>
+                <th class="px-4 py-2"></th>
             </tr>
         </thead>
         <tbody>
-
-        @forelse ($projects as $project)
-            <tr>
-                <td>
-                    <input class="form-check-input" type="checkbox" 
-                    name="delete_ids[]" id="delete-{{ $project->id }}" 
-                    value="{{ $project->id }}">
-                </td>
-                <td>{{ $project->id }}</td>
-                <td>{{ $project->name }}</td>
-                <td>{{ $project->description }}</td>
-                <td>{{ $project->user->name }}</td>
-                <td>
-                    <a href="{{ route('project.edit', $project->id) }}" class="btn btn-sm btn-primary">
-                        EDIT
-                    </a>
-
-                    <!-- <form action="{{route('project.destroy', $project->id)}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger btn-sm" type="submit">DELETE</button>
-                    </form> -->
-                </td>
-            </tr>
-        @empty 
-            <tr>
-                <td colspan="4" style="height: 100px; text-align: center; vertical-align:middle;">
-                    No projects found. Create a new project to get started. 
-                </td>
-            </tr>
-        @endforelse
+            @forelse ($projects as $project)
+                <tr class="border-b">
+                    <td class="px-4 py-2">
+                        <input class="form-check-input" type="checkbox" 
+                               name="delete_ids[]" id="delete-{{ $project->id }}" 
+                               value="{{ $project->id }}">
+                    </td>
+                    <td class="px-4 py-2">{{ $project->id }}</td>
+                    <td class="px-4 py-2">{{ $project->name }}</td>
+                    <td class="px-4 py-2">{{ $project->description }}</td>
+                    <td class="px-4 py-2">{{ $project->user->name }}</td>
+                    <td class="px-4 py-2">
+                        <a href="{{ route('project.edit', $project->id) }}" class="btn btn-sm btn-primary bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+            @empty 
+                <tr>
+                    <td colspan="6" class="text-center py-4">
+                        No projects found. Create a new project to get started. 
+                    </td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
+</form>
 
-    </form>
+{{ $projects->links() }}
 
-    {{ $projects->links() }}
-@endsection
+</div>
+</div>
+</div>
+</x-app-layout>
