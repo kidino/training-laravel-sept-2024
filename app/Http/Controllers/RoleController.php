@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Request;
+use Redirect;
 use App\Models\Role;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 
@@ -11,8 +14,14 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        // if ($request->user()->cannot('update')) {
+        //     abort(403);
+        // }
+
+        Gate::authorize('viewAny', Role::class);
+
         $roles = Role::all();
         return view('role.index', compact('roles'));
 
@@ -23,6 +32,7 @@ class RoleController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Role::class);
         return view('role.create');
     }
 
@@ -31,6 +41,8 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
+        Gate::authorize('create', Role::class);
+
         $validatedData = $request->validated();
         // Create a new role with the validated data
         $role = Role::create($validatedData);
@@ -51,6 +63,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        Gate::authorize('update', $role);
+
         return view('role.edit', compact('role'));
     }
 
@@ -59,6 +73,8 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
+        Gate::authorize('update', $role);
+
         $validatedData = $request->validated();
         $role->update($validatedData);
         return redirect()->route('role.edit', $role->id)->with('success', 'Role updated successfully');

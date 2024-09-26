@@ -7,6 +7,11 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
+    // protected $policies = [
+    //     Role::class => RolePolicy::class,
+    // ];
+
     /**
      * Register any application services.
      */

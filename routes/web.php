@@ -27,13 +27,13 @@ Route::get('/home/{name?}/{age?}', [ HomeController::class, 'index' ])->name('ho
 
 Route::get('/about', function(){
     return view('about');
-})->name('about');
+})->middleware(['auth', 'verified'])->name('about');
 
 Route::redirect('/google', 'https://google.com');
 
 // -- USER ROUTINGS ---// 
 
-Route::prefix('user')->name('user.')->group(function () {
+Route::prefix('user')->middleware(['auth', 'verified'])->name('user.')->group(function () {
     Route::get('/', [ UserController::class, 'index'])->name('index');
     Route::get('/{user}', [ UserController::class, 'show'])->name('show');
     Route::get('/{user}/edit', [ UserController::class, 'edit'])->name('edit');
@@ -42,8 +42,8 @@ Route::prefix('user')->name('user.')->group(function () {
 
 // -- PROJECT ROUTINGS --//
 
-Route::resource('project', ProjectController::class);
-Route::delete('project',[ ProjectController::class, 'destroyMany' ])->name('project.destroy-many');
+Route::resource('project', ProjectController::class)->middleware(['auth', 'verified']);
+Route::delete('project',[ ProjectController::class, 'destroyMany' ])->middleware(['auth', 'verified'])->name('project.destroy-many');
 
 // -- ROLE ROUTINGS -- //
 
