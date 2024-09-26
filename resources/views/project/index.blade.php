@@ -51,12 +51,12 @@
     <table class="min-w-full bg-white border border-gray-200 mt-2 mb-2">
         <thead>
             <tr class="bg-gray-200 text-gray-600">
-                <th class="px-4 py-2"></th>
-                <th class="px-4 py-2">ID</th>
-                <th class="px-4 py-2">NAME</th>
-                <th class="px-4 py-2">DESCRIPTION</th>
-                <th class="px-4 py-2">PM</th>
-                <th class="px-4 py-2"></th>
+                <th class="px-4 py-2 text-left"></th>
+                <th class="px-4 py-2 text-left">ID</th>
+                <th class="px-4 py-2 text-left">NAME</th>
+                <th class="px-4 py-2 text-left">DESCRIPTION</th>
+                <th class="px-4 py-2 text-left">PM</th>
+                <th class="px-4 py-2 text-left"></th>
             </tr>
         </thead>
         <tbody>
@@ -71,13 +71,13 @@
                     <td class="px-4 py-2">{{ $project->name }}</td>
                     <td class="px-4 py-2">{{ $project->description }}</td>
                     <td class="px-4 py-2">{{ $project->user->name }}</td>
-                    <td class="px-4 py-2">
+                    <td class="px-4 py-2 text-right">
                         <a href="{{ route('project.edit', $project->id) }}" class="btn btn-sm btn-primary bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
                             Edit
                         </a>
                     </td>
                 </tr>
-            @empty 
+            @empty  
                 <tr>
                     <td colspan="6" class="text-center py-4">
                         No projects found. Create a new project to get started. 

@@ -36,6 +36,8 @@ Route::redirect('/google', 'https://google.com');
 Route::prefix('user')->name('user.')->group(function () {
     Route::get('/', [ UserController::class, 'index'])->name('index');
     Route::get('/{user}', [ UserController::class, 'show'])->name('show');
+    Route::get('/{user}/edit', [ UserController::class, 'edit'])->name('edit');
+    Route::put('/{user}', [ UserController::class, 'update'])->name('update');
 });
 
 // -- PROJECT ROUTINGS --//
