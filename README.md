@@ -52,3 +52,18 @@ Bertempat di KelasProgramming.com (Taming Tech Sdn Bhd)
 * Artisan make:model Role -a
 * FormRequest class for validation
 * Validation rule unique but ignore for update 
+
+## Hari Keempat
+
+* Kemaskini rekabentuk dari Bootstrap ke Tailwind
+* Model many-to-many relation
+* Membina UI untuk mengemaskini User
+* Membina API dengan route api.php 
+* Menambah Sanctum untuk login API secara token (JWT)
+* Membina login untuk akses API
+* Mempelajari Insomnia (API client software)
+* Mengakses API dengan JWT
+* Mengawal akses dengan Middleware dalam router
+* Membina Policy untuk mengawal akses
+* Menggunakan Policy dalam Controller 
+* Deployment ke Server melalui Github dengan Webook menggunakan RunCloud

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProjectStoreRequest;
-use App\Http\Requests\ProjectUpdateRequest;
 use App\Models\User;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ProjectStoreRequest;
+use App\Http\Requests\ProjectUpdateRequest;
 
 class ProjectController extends Controller
 {
@@ -15,8 +16,15 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        // $projects = Project::all();
+        $projects = Project::all();
         $projects = Project::with('user')->orderBy('id','desc')->paginate(20);
+
+        // $projects = DB::table('projects')
+        // ->leftJoin('users', 'projects.user_id', '=', 'users.id')
+        // ->select('projects.*', 'users.name as user_name') // Adjust the fields as needed
+        // ->orderBy('projects.id', 'desc')
+        // ->paginate(20);
+
         return view('project.index', compact('projects'));
     }
 

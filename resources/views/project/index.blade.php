@@ -71,6 +71,7 @@
                     <td class="px-4 py-2">{{ $project->name }}</td>
                     <td class="px-4 py-2">{{ $project->description }}</td>
                     <td class="px-4 py-2">{{ $project->user->name }}</td>
+                    <!-- <td class="px-4 py-2">{-- $project->user_name --}</td> -->
                     <td class="px-4 py-2 text-right">
                         <a href="{{ route('project.edit', $project->id) }}" class="btn btn-sm btn-primary bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
                             Edit
