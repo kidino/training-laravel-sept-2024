@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <title>{{ config('app.name', 'CloudSync') }} - Streamline Your Business Operations</title>
+    <title>{{ config('app.name', 'CloudSync') }} -  My SaaS Company</title>
     <meta name="description" content="Transform your business with CloudSync - the all-in-one SaaS platform that automates workflows, enhances collaboration, and drives growth.">
     
     <!-- Fonts -->
