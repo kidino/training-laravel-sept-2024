@@ -8,7 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('new-homepage');
 })->name('home');
 
 Route::get('/dashboard', function () {
